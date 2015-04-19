@@ -1,5 +1,6 @@
 package f2.spw;
 
+import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -62,10 +63,11 @@ public class GameEngine implements KeyListener, GameReporter{
 			if(!e.isAlive()){
 				e_iter.remove();
 				gp.sprites.remove(e);
-				score += 100;
+				score += 10;
 			}
+
 		}
-		
+
 		gp.updateGameUI(this);
 		
 		Rectangle2D.Double vr = v.getRectangle();
@@ -74,6 +76,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			er = e.getRectangle();
 			if(er.intersects(vr)){
 				die();
+				JOptionPane.showMessageDialog(null,"Your scores : " + score ,"Game Over !!! " ,JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}
 		}
