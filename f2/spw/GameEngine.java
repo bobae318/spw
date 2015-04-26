@@ -22,6 +22,8 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	private long score = 0;
 	private double difficulty = 0.1;
+	private int heart = 5 ;	
+	private int extra = 1;
 	
 	public GameEngine(GamePanel gp, SpaceShip v) {
 		this.gp = gp;
@@ -75,15 +77,30 @@ public class GameEngine implements KeyListener, GameReporter{
 		for(Enemy e : enemies){
 			er = e.getRectangle();
 			if(er.intersects(vr)){
+				if(heart!=0)
+					heart = heart - 1;
+				else
 				die();
-				JOptionPane.showMessageDialog(null,"Your scores : " + score ,"Game Over !!! " ,JOptionPane.INFORMATION_MESSAGE);
+
 				return;
 			}
 		}
 	}
 	
+
+	public void restart()
+	{
+		timer.stop();
+		if(extra!=0)
+			timer.start();
+	}
 	public void die(){
 		timer.stop();
+		
+		JOptionPane.showMessageDialog(null,"Your scores : " + score ,"Game Over !!! " ,JOptionPane.INFORMATION_MESSAGE);
+
+		if(extra != 0)
+			JOptionPane.showMessageDialog(null,"Press R to Continue with 1 life (The  Extra life from God");
 	}
 	
 	void controlVehicle(KeyEvent e) {
@@ -97,7 +114,18 @@ public class GameEngine implements KeyListener, GameReporter{
 		case KeyEvent.VK_S:
 			difficulty += 0.1;
 			break;
-		}
+
+		
+		case KeyEvent.VK_R:
+			if(extra!=0){
+				restart();
+				extra--;
+			}
+			else
+			timer.stop();
+			break;
+		
+	}
 	}
 
 	public long getScore(){
@@ -106,7 +134,9 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
 		controlVehicle(e);
+
 		
 	}
 
