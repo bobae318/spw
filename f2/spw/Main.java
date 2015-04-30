@@ -8,8 +8,13 @@ import javax.swing.JOptionPane;
 public class Main {
 	public static void main(String[] args){
 		
+		Sound start = new Sound();
+		
+
+
 		String name = JOptionPane.showInputDialog(null,"Enter name !!","*",JOptionPane.QUESTION_MESSAGE);
 		JFrame frame = new JFrame("Space War");
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(400, 650);
 		frame.getContentPane().setLayout(new BorderLayout());
@@ -22,5 +27,6 @@ public class Main {
 		frame.setVisible(true);
 		JOptionPane.showMessageDialog(null,"Hello  " + name +"  Are you ready to Space Ship","Hi!!" ,JOptionPane.INFORMATION_MESSAGE);
 		engine.start();
+		start.playSound(3);
 	}
 }
